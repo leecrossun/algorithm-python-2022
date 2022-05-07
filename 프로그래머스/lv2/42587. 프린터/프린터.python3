@@ -1,0 +1,29 @@
+import heapq
+from collections import deque
+
+def solution(priorities, location):
+    answer = 0
+    heap = []
+    d = deque()
+    for i in range(len(priorities)):
+        d.append((i, priorities[i]))
+        heapq.heappush(heap, (-priorities[i], priorities[i]))
+    cnt = 0
+    flag = True
+    while flag:
+        current = heapq.heappop(heap)
+        print_paper = current[1]
+
+        while flag:
+            out = d.popleft()
+            out_idx, out_paper = out[0], out[1]
+            if out_paper != print_paper:
+                d.append(out)
+            else:
+                if out_idx == location:
+                    answer = cnt + 1
+                    flag = False
+                cnt += 1
+                break
+
+    return answer
