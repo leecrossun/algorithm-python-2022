@@ -1,0 +1,9 @@
+from itertools import product
+def solution(numbers, target):
+    answer = 0
+    size = len(numbers)
+    for op in product([1, -1], repeat=size):
+        result = [x * y for x, y in zip(numbers, op)]
+        if sum(result) == target:
+            answer += 1
+    return answer
